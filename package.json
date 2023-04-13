@@ -8,7 +8,8 @@
     "dev": "npx nodemon src/service.ts",
     "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
     "createDB": "npx node src/database/createDatabase.js",
-    "createTables": "npx node src/database/createTables.js"
+    "createTables": "npx node src/database/createTables.js",
+    "setupDB": "npm run createDB && npm run createTables"
   },
   "keywords": [],
   "author": "",

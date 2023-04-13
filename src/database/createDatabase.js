@@ -4,13 +4,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const config = {
-  user: process.env.DB_USER,
-  port: process.env.DB_PORT,
-  password: process.env.DB_PASS,
-  host: process.env.DB_HOST,
+  user: process.env.POSTGRES_USER,
+  port: process.env.POSTGRES_PORT,
+  password: process.env.POSTGRES_PASSWORD,
+  host: process.env.POSTGRES_HOST,
 };
 
-pgtools.createdb(config, process.env.DB_NAME, function (err, res) {
+pgtools.createdb(config, process.env.POSTGRES_DB, function (err, res) {
   if (err) {
     console.error(err);
     process.exit(-1);

@@ -27,8 +27,8 @@ async function createTableUsers() {
 
     console.log('Tabelas "users" e "sessions" criadas com sucesso!');
   } catch (err) {
-    await client.query('ROLLBACK');
     console.error('Erro ao criar as tabelas "users" e "sessions"', err.stack);
+    await connection.query('ROLLBACK');
   } finally {
     await connection.end();
   }

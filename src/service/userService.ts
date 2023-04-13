@@ -10,10 +10,7 @@ interface loginDate {
 }
 
 export async function signUp(userDate: user) {
-  console.log('userDate ', userDate);
   const findedUser = await userRepository.findByEmail(userDate.email);
-
-  console.log('findedUser ', findedUser);
 
   if (findedUser) {
     forbidden('esse email já está cadastrado');
@@ -31,12 +28,9 @@ export async function login(loginDate: loginDate) {
     notFound('Não foi encontrado um usuário com esse email');
   }
 
-  console.log(findedUser);
-
   const hashPassword = findedUser.password;
   const validatePassword = bcrypt.compareSync(loginDate.password, hashPassword);
   if (!validatePassword) unauthorized('Password invalid');
-  console.log(validatePassword);
 
   const sessao = await sessoesRepository.findByUserId(findedUser.id);
   if (sessao) unauthorized('Esse usuario já está logado');

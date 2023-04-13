@@ -6,6 +6,9 @@ import loginSchema from '../schemas/loginSchema.js';
 import userSchema from '../schemas/userSchema.js';
 
 const userRouter = Router();
+userRouter.get('/toto', function (req, res) {
+  res.send(200);
+});
 userRouter.get('/user', validateToken, userController.findById);
 userRouter.post('/signUp', validateSchema(userSchema), userController.sighUp);
 userRouter.post('/login', validateSchema(loginSchema), userController.login);
