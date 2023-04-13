@@ -1,22 +1,19 @@
-import mysql from 'mysql';
+import pgtools from 'pgtools';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
+const config = {
   user: process.env.DB_USER,
+  port: process.env.DB_PORT,
   password: process.env.DB_PASS,
+  host: process.env.DB_HOST,
+};
+
+pgtools.createdb(config, process.env.DB_NAME, function (err, res) {
+  if (err) {
+    console.error(err);
+    process.exit(-1);
+  }
+  console.log('Banco de dados toto criado com sucesso!');
 });
-
-connection.connect((err) => {
-  if (err) throw err;
-  console.log('Conectado com sucesso!');
-
-  connection.query(`CREATE DATABASE ${process.env.DB_NAME}`, (err, result) => {
-    if (err) throw err;
-    console.log('Banco de dados criado com sucesso!');
-  });
-});
-
-connection.end();
