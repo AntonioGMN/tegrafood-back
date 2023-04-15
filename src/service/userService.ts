@@ -30,7 +30,7 @@ export async function login(loginDate: loginDate) {
 
   const hashPassword = findedUser.password;
   const validatePassword = bcrypt.compareSync(loginDate.password, hashPassword);
-  if (!validatePassword) unauthorized('Password invalid');
+  if (!validatePassword) unauthorized('Senha não incorreta');
 
   const sessao = await sessoesRepository.findByUserId(findedUser.id);
   if (sessao) unauthorized('Esse usuario já está logado');

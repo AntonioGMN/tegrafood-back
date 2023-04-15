@@ -3,6 +3,8 @@ import * as userService from '../service/userService.js';
 
 export async function sighUp(req: Request, res: Response) {
   const user = req.body;
+  console.log(req.file);
+  user.image = req.file.filename;
   await userService.signUp(user);
   res.sendStatus(201);
 }
@@ -24,7 +26,6 @@ export async function logout(req: Request, res: Response) {
 
 export async function findById(req: Request, res: Response) {
   const { userId } = res.locals;
-  console.log(userId);
   const users = await userService.find(userId);
   res.send(users).status(200);
 }

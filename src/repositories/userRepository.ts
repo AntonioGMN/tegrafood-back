@@ -20,6 +20,7 @@ export async function findByEmail(email: string) {
     'SELECT * FROM users WHERE email=$1',
     [email],
   );
+  console.log(response);
   return response.rows[0];
 }
 

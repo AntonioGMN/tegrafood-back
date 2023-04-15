@@ -11,3 +11,11 @@ CREATE TABLE sessions (
   token VARCHAR(255) NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  discription VARCHAR(255) DEFAULT NULL,
+  price NUMBER NOT NULL,
+  image TEXT NOT NULL
+);

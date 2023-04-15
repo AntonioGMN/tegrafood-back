@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
+import { MulterErro } from '../multer-config.js';
 import { AppError } from '../utils/errorUtils.js';
 
 export default function errorHandlingMiddleware(
-  error: Error | AppError,
+  error: Error | AppError | MulterErro,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -24,6 +25,8 @@ export default function errorHandlingMiddleware(
       return res.status(401).send(error.message);
     }
   }
+
+  if ('properties' in error) return res.status(403).send(error.message);
 
   return res.sendStatus(500);
 }
