@@ -9,6 +9,7 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
     "createDB": "npx node src/database/createDatabase.js",
     "createTables": "npx node src/database/createTables.js",
+    "seed": "npx node src/database/seed.js",
     "setupDB": "npm run createDB && npm run createTables"
   },
   "keywords": [],
