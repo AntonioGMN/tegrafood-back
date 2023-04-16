@@ -18,9 +18,6 @@ userRouter.post(
   validateSchema(userSchema),
   userController.sighUp,
 );
-// userRouter.post('/login', function (req, res) {
-//   res.send(200);
-// });
 userRouter.delete('/logout', validateToken, userController.logout);
 
 export default userRouter;
