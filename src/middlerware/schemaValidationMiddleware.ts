@@ -17,6 +17,8 @@ export default function validateSchema(schema) {
       return res.status(400).send(validation.error.details[0].message);
     }
 
+    console.log('ok');
+
     return next();
   };
 }

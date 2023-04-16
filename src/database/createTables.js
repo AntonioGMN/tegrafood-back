@@ -8,7 +8,7 @@ async function createTableUsers() {
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
-        image TEXT NOT NULL
+        image VARCHAR(255) NOT NULL
       )
     `;
 
@@ -20,12 +20,25 @@ async function createTableUsers() {
       )
     `;
 
+    const queryCreateProducts = `
+      CREATE TABLE IF NOT EXISTS products (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        price NUMERIC(10,2) NOT NULL,
+        description VARCHAR(255) DEFAULT NULL,
+        image VARCHAR(255) NOT NULL
+      )
+    `;
+
     await connection.query('BEGIN');
     await connection.query(queryCreateUsers);
     await connection.query(queryCreateSessions);
+    await connection.query(queryCreateProducts);
     await connection.query('COMMIT');
 
-    console.log('Tabelas "users" e "sessions" criadas com sucesso!');
+    console.log(
+      'Tabelas "users", "sessions" e "products" criadas com sucesso!',
+    );
   } catch (err) {
     console.error('Erro ao criar as tabelas "users" e "sessions"', err.stack);
     await connection.query('ROLLBACK');

@@ -11,13 +11,16 @@ userRouter.get('/toto', function (req, res) {
   res.send(200);
 });
 userRouter.get('/user', validateToken, userController.findById);
+userRouter.post('/login', validateSchema(loginSchema), userController.login);
 userRouter.post(
   '/signUp',
   multerInstance.single('image'),
   validateSchema(userSchema),
   userController.sighUp,
 );
-userRouter.post('/login', validateSchema(loginSchema), userController.login);
+// userRouter.post('/login', function (req, res) {
+//   res.send(200);
+// });
 userRouter.delete('/logout', validateToken, userController.logout);
 
 export default userRouter;

@@ -41,7 +41,8 @@ export async function login(loginDate: loginDate) {
   });
   await sessoesRepository.create(findedUser.id, token);
 
-  return token;
+  delete findedUser.password;
+  return { token, user: findedUser };
 }
 
 export async function logout(userId: number) {
