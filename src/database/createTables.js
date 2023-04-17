@@ -1,6 +1,6 @@
 import connection from './connection.js';
 
-async function createTableUsers() {
+async function createTables() {
   try {
     const queryCreateUsers = `
       CREATE TABLE IF NOT EXISTS users (
@@ -25,9 +25,10 @@ async function createTableUsers() {
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         price NUMERIC(10,2) NOT NULL,
+        category VARCHAR(255) NOT NULL CHECK (category IN ('pizza', 'sobremesa', 'lanche', 'açaí', 'bebidas')),
         description VARCHAR(255) DEFAULT NULL,
         image VARCHAR(255) NOT NULL
-      )
+      );
     `;
 
     await connection.query('BEGIN');
@@ -40,11 +41,11 @@ async function createTableUsers() {
       'Tabelas "users", "sessions" e "products" criadas com sucesso!',
     );
   } catch (err) {
-    console.error('Erro ao criar as tabelas', err.stack);
+    console.error('Erro ao criar as tabelas', err);
     await connection.query('ROLLBACK');
   } finally {
     await connection.end();
   }
 }
 
-createTableUsers();
+createTables();

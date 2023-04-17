@@ -1,1 +1,1 @@
-delete from sessions  
+DROP TABLE IF EXISTS products;
