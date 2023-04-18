@@ -7,9 +7,8 @@ export async function getAll(req: Request, res: Response) {
 }
 
 export async function getWithFilters(req: Request, res: Response) {
-  const { typefilter } = req.params;
   const query = req.query;
-  const products = await productsService.getWithFilters(typefilter, query);
+  const products = await productsService.getWithFilters(query);
 
   res.send(products);
 }

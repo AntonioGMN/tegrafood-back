@@ -6,9 +6,6 @@ import loginSchema from '../schemas/loginSchema.js';
 
 const productsRouter = Router();
 productsRouter.get('/products', productsController.getAll);
-productsRouter.get(
-  '/products/filters/:typefilter',
-  productsController.getWithFilters,
-);
+productsRouter.get('/products/filters', productsController.getWithFilters);
 
 export default productsRouter;

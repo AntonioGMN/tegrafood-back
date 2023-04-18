@@ -11,7 +11,7 @@ async function seed() {
       ('Açaí com frutas', 17.00, 'açaí', 'Açaí, banana, morango, uva, leite ninho em pó e leite condensado', 'açaí.png'),
       ('Refrigerante Coca-Cola 350ml', 6.00, 'bebidas', null, 'coca-cola.png'),
       ('Taça de sonho de valsa', 15.00, 'sobremesa', 'Taça de sonho de valsa', 'milkshake.png'),
-      ('Barca de Açaí', 22.00, 'sobremesa', 'Açaí, banana, morango, uva, leite ninho em pó e leite condensado', 'barca-açaí.png');
+      ('Barca de Açaí', 22.00, 'açaí', 'Açaí, banana, morango, uva, leite ninho em pó e leite condensado', 'barca-açaí.png');
     `;
 
     await connection.query('BEGIN');
