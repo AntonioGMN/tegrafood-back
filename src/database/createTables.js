@@ -31,14 +31,24 @@ async function createTables() {
       );
     `;
 
+    const queryCreateShopping = `
+      CREATE TABLE IF NOT EXISTS shopping (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+        quantity INTEGER NOT NULL DEFAULT 1
+      );
+    `;
+
     await connection.query('BEGIN');
     await connection.query(queryCreateUsers);
     await connection.query(queryCreateSessions);
     await connection.query(queryCreateProducts);
+    await connection.query(queryCreateShopping);
     await connection.query('COMMIT');
 
     console.log(
-      'Tabelas "users", "sessions" e "products" criadas com sucesso!',
+      'Tabelas "users", "sessions", "products" e "criadas com sucesso!',
     );
   } catch (err) {
     console.error('Erro ao criar as tabelas', err);

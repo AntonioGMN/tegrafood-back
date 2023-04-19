@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS products;
+SELECT * from shopping

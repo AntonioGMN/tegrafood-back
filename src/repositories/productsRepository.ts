@@ -32,7 +32,9 @@ export async function getByPriceBetween(
   onAlphabeticalOrde: boolean,
   category: string | boolean,
 ) {
-  const alphabeticalOrder = onAlphabeticalOrde ? ' ORDER BY name ASC;' : ';';
+  const alphabeticalOrder = onAlphabeticalOrde
+    ? ' ORDER BY name ASC;'
+    : 'ORDER BY price ASC;';
   const findByCategory = category ? ` AND category = '${category}'` : '';
 
   const response = await connection.query(
@@ -49,7 +51,9 @@ export async function getByPriceBiggerThen(
   onAlphabeticalOrde: boolean,
   category: string | boolean,
 ) {
-  const alphabeticalOrder = onAlphabeticalOrde ? ' ORDER BY name ASC;' : ';';
+  const alphabeticalOrder = onAlphabeticalOrde
+    ? ' ORDER BY name ASC;'
+    : 'ORDER BY price ASC;';
   const findByCategory = category ? `AND category = '${category}'` : '';
   const response = await connection.query(
     `SELECT * FROM products WHERE price > $1 ${

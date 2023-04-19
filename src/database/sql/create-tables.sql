@@ -22,3 +22,10 @@ CREATE TABLE products (
   image VARCHAR(255) NOT NULL
 );
    
+
+CREATE TABLE shopping (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+  quantity INTEGER NOT NULL DEFAULT 1,
+);
