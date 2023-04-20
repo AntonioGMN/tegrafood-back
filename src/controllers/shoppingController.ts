@@ -8,3 +8,10 @@ export async function create(req: Request, res: Response) {
   await shoppingService.create(userId, productId);
   res.sendStatus(200);
 }
+
+export async function getByUserId(req: Request, res: Response) {
+  const { userId } = res.locals;
+
+  const products = await shoppingService.getByUserId(userId);
+  res.status(200).send(products);
+}

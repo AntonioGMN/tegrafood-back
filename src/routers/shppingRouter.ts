@@ -6,5 +6,10 @@ import loginSchema from '../schemas/loginSchema.js';
 
 const shoppingRouter = Router();
 shoppingRouter.post('/shopping', validateToken, shoppingController.create);
+shoppingRouter.get(
+  '/shopping/user',
+  validateToken,
+  shoppingController.getByUserId,
+);
 
 export default shoppingRouter;

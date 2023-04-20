@@ -1,1 +1,1 @@
-SELECT * from shopping
+delete from sessions

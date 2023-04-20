@@ -12,3 +12,17 @@ export async function create(userId: number, productId: number) {
     console.log(err);
   }
 }
+
+export async function getByUserId(userId: number) {
+  console.log('getByuser');
+  try {
+    const response = await connection.query(
+      `SELECT p.* FROM products p JOIN  shopping s
+       ON p.id = s.product_id WHERE s.user_id = $1`,
+      [userId],
+    );
+    return response.rows;
+  } catch (err) {
+    console.log(err);
+  }
+}
