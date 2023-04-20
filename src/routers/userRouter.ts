@@ -7,9 +7,6 @@ import userSchema from '../schemas/userSchema.js';
 import multerInstance from '../multer-config.js';
 
 const userRouter = Router();
-userRouter.get('/toto', function (req, res) {
-  res.send(200);
-});
 userRouter.get('/user', validateToken, userController.findById);
 userRouter.post('/login', validateSchema(loginSchema), userController.login);
 userRouter.post(
@@ -19,5 +16,6 @@ userRouter.post(
   userController.sighUp,
 );
 userRouter.delete('/logout', validateToken, userController.logout);
+userRouter.put('/user/refresh', userController.refleshToken);
 
 export default userRouter;

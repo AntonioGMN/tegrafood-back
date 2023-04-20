@@ -16,7 +16,7 @@ async function createTables() {
       CREATE TABLE IF NOT EXISTS sessions (
         id SERIAL PRIMARY KEY,
         token VARCHAR(255) NOT NULL,
-        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+        user_id INTEGER UNIQUE REFERENCES users(id) ON DELETE CASCADE
       )
     `;
 
@@ -34,8 +34,8 @@ async function createTables() {
     const queryCreateShopping = `
       CREATE TABLE IF NOT EXISTS shopping (
         id SERIAL PRIMARY KEY,
-        user_id INTEGER REFERENCES users(id) NOT NULL  ON DELETE CASCADE,
-        product_id INTEGER REFERENCES products(id) NOT NULL  ON DELETE CASCADE,
+        user_id INTEGER REFERENCES users(id) NOT NULL,
+        product_id INTEGER REFERENCES products(id) NOT NULL,
         quantity INTEGER NOT NULL DEFAULT 1
       );
     `;
@@ -47,9 +47,7 @@ async function createTables() {
     await connection.query(queryCreateShopping);
     await connection.query('COMMIT');
 
-    console.log(
-      'Tabelas "users", "sessions", "products" e "criadas com sucesso!',
-    );
+    console.log('Tabelas criadas com sucesso!');
   } catch (err) {
     console.error('Erro ao criar as tabelas', err);
     await connection.query('ROLLBACK');

@@ -1,8 +1,6 @@
 import connection from '../database/connection.js';
 
 export async function create(userId: number, productId: number) {
-  console.log(userId);
-  console.log(productId);
   try {
     return await connection.query(
       `INSERT INTO shopping (user_id, product_id) VALUES ($1, $2)`,
@@ -14,7 +12,6 @@ export async function create(userId: number, productId: number) {
 }
 
 export async function getByUserId(userId: number) {
-  console.log('getByuser');
   try {
     const response = await connection.query(
       `SELECT p.* FROM products p JOIN  shopping s

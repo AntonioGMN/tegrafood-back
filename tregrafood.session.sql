@@ -1,1 +1,3 @@
-delete from sessions
+
+
+select token from sessions

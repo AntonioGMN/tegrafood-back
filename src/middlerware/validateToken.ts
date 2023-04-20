@@ -20,14 +20,7 @@ export default async function validateToken(
     res.locals.userId = userId;
   } catch (error) {
     const { expiredAt } = error;
-
-    if (expiredAt) {
-      const response = await sessoesRepository.findByToken(token);
-      if (response) {
-        await sessoesRepository.logout(response.userid);
-      }
-      return res.status(401).send('token espirou');
-    }
+    if (expiredAt) return res.status(401).send('token expirou');
 
     return res.status(401).send('token invalido');
   }

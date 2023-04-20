@@ -29,3 +29,12 @@ export async function findById(req: Request, res: Response) {
   const users = await userService.find(userId);
   res.send(users).status(200);
 }
+
+export async function refleshToken(req: Request, res: Response) {
+  const { oldToken } = req.body;
+  console.log(oldToken);
+
+  const newToken = await userService.refleshToken(oldToken);
+  console.log(newToken);
+  res.send(newToken).status(200);
+}

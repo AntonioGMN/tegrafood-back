@@ -37,7 +37,7 @@ export async function login(loginDate: loginDate) {
 
   const secretKey = process.env.JWT_SECRET;
   const token = jwt.sign({ userId: findedUser.id }, secretKey, {
-    expiresIn: 3600,
+    expiresIn: 3,
   });
   await sessoesRepository.create(findedUser.id, token);
 
@@ -52,4 +52,18 @@ export async function logout(userId: number) {
 export async function find(userId: number) {
   const users = await userRepository.findById(userId);
   return users;
+}
+
+export async function refleshToken(oldToken: string) {
+  const response = await sessoesRepository.findByToken(oldToken);
+  if (!response) unauthorized('Token invalido para refresh');
+
+  const { user_id } = response;
+  const secretKey = process.env.JWT_SECRET;
+  const newToken = jwt.sign({ userId: user_id }, secretKey, {
+    expiresIn: 20,
+  });
+
+  await sessoesRepository.updateToken(newToken, user_id);
+  return newToken;
 }
