@@ -20,7 +20,7 @@ export async function create(product: Product): Promise<void> {
   }
 }
 
-export async function getAll() {
+export async function getAll(): Promise<Array<Product>> {
   const response = await connection.query('SELECT * FROM products');
   return response.rows;
 }

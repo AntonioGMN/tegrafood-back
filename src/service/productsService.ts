@@ -1,13 +1,11 @@
 import Produc, * as productsRepository from '../repositories/productsRepository.js';
 import { bad_request, forbidden } from '../utils/errorUtils.js';
 
-export async function getAll() {
+export async function getAll(): Promise<Array<Produc>> {
   return await productsRepository.getAll();
 }
 
 export async function getWithFilters(query) {
-  console.log(query);
-
   if (query === null) bad_request('Não foi passado parametros para busca');
 
   let category;
@@ -36,9 +34,6 @@ export async function getWithFilters(query) {
       category,
     );
   }
-
-  console.log(!('start' in query));
-  console.log(!('end' in query));
 
   if ('start' in query || 'end' in query) {
     if (!('start' in query) || !('end' in query))

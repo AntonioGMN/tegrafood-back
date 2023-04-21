@@ -1,13 +1,13 @@
 import supertest from 'supertest';
 import app from '../../src/app.js';
-import { deleteFile, clearDB } from '../ultils/index.js';
+import { deleteFile, clearDB } from '../utils/index.js';
 
 describe('auth test', () => {
   let token;
   let saveImgPath;
   const user = {
     name: 'userTest',
-    email: 'test4@gmail.com',
+    email: 'test1@gmail.com',
     password: '123',
   };
 
@@ -56,8 +56,8 @@ describe('auth test', () => {
     expect(response.status).toEqual(200);
   });
 
-  afterAll(() => {
-    deleteFile(saveImgPath);
-    clearDB();
+  afterAll(async () => {
+    await clearDB();
+    await deleteFile(saveImgPath);
   });
 });

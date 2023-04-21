@@ -6,6 +6,7 @@ import loginSchema from '../schemas/loginSchema.js';
 import multerInstance from '../multer-config.js';
 
 const productsRouter = Router();
+productsRouter.use(validateToken);
 productsRouter.post(
   '/products',
   multerInstance.single('image'),

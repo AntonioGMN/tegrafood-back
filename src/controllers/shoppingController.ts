@@ -6,7 +6,7 @@ export async function create(req: Request, res: Response) {
   const { productId } = req.body;
 
   await shoppingService.create(userId, productId);
-  res.sendStatus(200);
+  res.sendStatus(201);
 }
 
 export async function getByUserId(req: Request, res: Response) {
