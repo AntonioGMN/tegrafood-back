@@ -15,5 +15,6 @@ pgtools.createdb(config, process.env.POSTGRES_DB, function (err, res) {
     console.error(err);
     process.exit(-1);
   }
-  console.log('Banco de dados toto criado com sucesso!');
+  connection.end();
+  console.log(`Banco de dados ${process.env.POSTGRES_DB} criado com sucesso!`);
 });

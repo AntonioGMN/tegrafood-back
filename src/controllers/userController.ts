@@ -4,6 +4,7 @@ import * as userService from '../service/userService.js';
 export async function sighUp(req: Request, res: Response) {
   const user = req.body;
   user.image = req.file.filename;
+
   await userService.signUp(user);
   res.sendStatus(201);
 }
@@ -32,9 +33,7 @@ export async function findById(req: Request, res: Response) {
 
 export async function refleshToken(req: Request, res: Response) {
   const { oldToken } = req.body;
-  console.log(oldToken);
 
   const newToken = await userService.refleshToken(oldToken);
-  console.log(newToken);
   res.send(newToken).status(200);
 }

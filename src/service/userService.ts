@@ -32,12 +32,12 @@ export async function login(loginDate: loginDate) {
   const validatePassword = bcrypt.compareSync(loginDate.password, hashPassword);
   if (!validatePassword) unauthorized('Senha não incorreta');
 
-  const sessao = await sessoesRepository.findByUserId(findedUser.id);
-  if (sessao) unauthorized('Esse usuario já está logado');
+  const session = await sessoesRepository.findByUserId(findedUser.id);
+  if (session) await sessoesRepository.logout(session.user_id);
 
   const secretKey = process.env.JWT_SECRET;
   const token = jwt.sign({ userId: findedUser.id }, secretKey, {
-    expiresIn: 3,
+    expiresIn: 60,
   });
   await sessoesRepository.create(findedUser.id, token);
 
@@ -56,12 +56,13 @@ export async function find(userId: number) {
 
 export async function refleshToken(oldToken: string) {
   const response = await sessoesRepository.findByToken(oldToken);
+  console.log('response ', response);
   if (!response) unauthorized('Token invalido para refresh');
 
   const { user_id } = response;
   const secretKey = process.env.JWT_SECRET;
   const newToken = jwt.sign({ userId: user_id }, secretKey, {
-    expiresIn: 20,
+    expiresIn: 60,
   });
 
   await sessoesRepository.updateToken(newToken, user_id);

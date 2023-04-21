@@ -6,11 +6,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon src/service.ts",
-    "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
     "createDB": "npx node src/database/createDatabase.js",
     "createTables": "npx node src/database/createTables.js",
     "seed": "npx node src/database/seed.js",
-    "setupDB": "npm run createDB && npm run createTables"
+    "setupDB": "npm run createDB && npm run createTables",
+    "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
+    "test:createDB": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test npm run createDB",
+    "test:createTables": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test npm run createTables",
+    "test:seed": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test npm run seed"
   },
   "keywords": [],
   "author": "",
@@ -36,7 +39,6 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@prisma/client": "^3.14.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",

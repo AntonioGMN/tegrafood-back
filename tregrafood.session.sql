@@ -1,3 +1,3 @@
 
 
-select token from sessions
+select * from sessions

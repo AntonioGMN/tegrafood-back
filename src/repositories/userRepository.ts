@@ -9,7 +9,7 @@ export default interface user {
 
 export async function create(userDate: user) {
   const { name, email, password, image } = userDate;
-  return await connection.query(
+  await connection.query(
     `INSERT INTO users(name, email, password, image) VALUES ($1, $2, $3, $4)`,
     [name, email, password, image],
   );
