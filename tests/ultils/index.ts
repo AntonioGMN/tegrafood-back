@@ -1,5 +1,6 @@
 import connection from '../../src/database/connection';
 import fs from 'fs';
+import * as userService from '../../src/service/userService';
 
 export async function clearDB() {
   try {
@@ -21,4 +22,19 @@ export function deleteFile(path: string) {
   fs.unlink('uploads/' + path, (err) => {
     if (err) console.error(err);
   });
+}
+
+export async function getToken(): Promise<string> {
+  const user = {
+    name: 'user_test',
+    email: 'user_test@gmail.com',
+    password: '123',
+    image: 'userTestImage.png',
+  };
+  await userService.signUp(user);
+  const { token } = await userService.login({
+    email: user.email,
+    password: user.password,
+  });
+  return token;
 }

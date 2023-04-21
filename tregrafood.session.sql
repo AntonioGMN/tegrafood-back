@@ -1,3 +1,3 @@
 
 
-select * from sessions
+select * from products

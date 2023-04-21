@@ -12,3 +12,11 @@ export async function getWithFilters(req: Request, res: Response) {
 
   res.send(products);
 }
+
+export async function create(req: Request, res: Response) {
+  const product = req.body;
+  product.image = req.file.filename;
+  await productsService.create(product);
+
+  res.sendStatus(201);
+}

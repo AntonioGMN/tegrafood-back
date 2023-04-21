@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { forbidden, notFound, unauthorized } from '../utils/errorUtils.js';
 
-interface loginDate {
+interface LoginDate {
   email: string;
   password: string;
 }
@@ -22,7 +22,9 @@ export async function signUp(userDate: user) {
   return await userRepository.create(hashUser);
 }
 
-export async function login(loginDate: loginDate) {
+export async function login(
+  loginDate: LoginDate,
+): Promise<{ token: string; user: object }> {
   const findedUser = await userRepository.findByEmail(loginDate.email);
   if (findedUser === undefined) {
     notFound('Não foi encontrado um usuário com esse email');
@@ -56,7 +58,6 @@ export async function find(userId: number) {
 
 export async function refleshToken(oldToken: string) {
   const response = await sessoesRepository.findByToken(oldToken);
-  console.log('response ', response);
   if (!response) unauthorized('Token invalido para refresh');
 
   const { user_id } = response;

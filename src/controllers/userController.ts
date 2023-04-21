@@ -13,7 +13,6 @@ export async function login(req: Request, res: Response) {
   const { email, password } = req.body;
   const user = { email, password };
 
-  console.log(user);
   const userAndToken = await userService.login(user);
   res.send(userAndToken);
 }

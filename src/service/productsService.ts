@@ -1,5 +1,5 @@
-import * as productsRepository from '../repositories/productsRepository.js';
-import { bad_request } from '../utils/errorUtils.js';
+import Produc, * as productsRepository from '../repositories/productsRepository.js';
+import { bad_request, forbidden } from '../utils/errorUtils.js';
 
 export async function getAll() {
   return await productsRepository.getAll();
@@ -59,4 +59,8 @@ export async function getWithFilters(query) {
     category,
     alphabeticalOrder,
   );
+}
+
+export async function create(product: Produc) {
+  return await productsRepository.create(product);
 }

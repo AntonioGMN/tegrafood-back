@@ -1,11 +1,23 @@
-import { BlobOptions } from 'buffer';
 import connection from '../database/connection.js';
 
-export async function create(userId: number, token: string) {
-  return await connection.query(
-    `INSERT INTO sessions (user_id, token) VALUES ($1, $2)`,
-    [userId, token],
-  );
+export default interface Product {
+  name: string;
+  price: string;
+  category: string;
+  description: string;
+  image: string;
+}
+
+export async function create(product: Product): Promise<void> {
+  const { name, price, category, description, image } = product;
+  try {
+    await connection.query(
+      `INSERT INTO products (name, price, category, description, image) VALUES ($1, $2, $3, $4, $5)`,
+      [name, price, category, description, image],
+    );
+  } catch (err) {
+    console.log(err.message);
+  }
 }
 
 export async function getAll() {

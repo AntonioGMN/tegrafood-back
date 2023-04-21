@@ -1,6 +1,6 @@
 import supertest from 'supertest';
-import app from '../src/app.js';
-import { deleteFile, clearDB } from './ultils/index.js';
+import app from '../../src/app.js';
+import { deleteFile, clearDB } from '../ultils/index.js';
 
 describe('auth test', () => {
   let token;
