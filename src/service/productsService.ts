@@ -1,7 +1,7 @@
 import Produc, * as productsRepository from '../repositories/productsRepository.js';
 import { bad_request, forbidden } from '../utils/errorUtils.js';
 
-export async function getAll(): Promise<Array<Produc>> {
+export async function getAll() {
   return await productsRepository.getAll();
 }
 

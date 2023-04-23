@@ -8,6 +8,15 @@
       "name": "tregrafood",
       "username": "postgres",
       "database": "tegrafood"
+    },
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "tregrafoodTest",
+      "database": "tregrafoodTest",
+      "username": "postgres"
     }
   ]
 }

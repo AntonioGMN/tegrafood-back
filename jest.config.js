@@ -10,4 +10,5 @@ export default {
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
+  maxWorkers: 1, // Adiciona a configuração para executar os testes um por um
 };

@@ -1,7 +1,14 @@
 import joi from 'joi';
 
-const shoppingSchema = joi.object({
+export const createShoppingSchema = joi.object({
   productId: joi.number().required(),
 });
 
-export default shoppingSchema;
+export const updateQuantitySchema = joi.object({
+  shoppingId: joi.number().required(),
+  newQuantity: joi.number().required(),
+});
+
+export const onlyShoppingIdSchema = joi.object({
+  shoppingId: joi.number().required(),
+});

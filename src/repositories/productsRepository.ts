@@ -20,9 +20,13 @@ export async function create(product: Product): Promise<void> {
   }
 }
 
-export async function getAll(): Promise<Array<Product>> {
-  const response = await connection.query('SELECT * FROM products');
-  return response.rows;
+export async function getAll() {
+  try {
+    const response = await connection.query('SELECT * FROM products');
+    return response.rows;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export async function getWithAlphabeticalOrde(

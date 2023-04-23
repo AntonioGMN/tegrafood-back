@@ -4,9 +4,9 @@ import * as productsService from '../../src/service/productsService';
 export async function createToken(): Promise<string> {
   const user = {
     name: 'user_test',
-    email: 'user_test3@gmail.com',
+    email: 'user_test' + Date.now() + '@gmail.com',
     password: '123',
-    image: 'userTestImage.png',
+    image: 'testImage.png',
   };
   await userService.signUp(user);
   const { token } = await userService.login({
@@ -20,12 +20,11 @@ export async function createProduct(): Promise<string> {
   const product = {
     name: 'produto_test',
     price: '100',
-    category: 'lanche',
+    category: 'sobremesa',
     description: 'muito bom',
-    image: 'userTestImage.png',
+    image: 'testImage.png',
   };
   await productsService.create(product);
   const response = await productsService.getAll();
-  const { id } = response[0];
-  return id;
+  return response[0].id;
 }

@@ -12,7 +12,7 @@ describe('products test', () => {
     price: '100',
     category: 'lanche',
     description: 'muito bom',
-    image: 'userTestImage.png',
+    image: 'estImage.png',
   };
 
   beforeAll(async () => {
@@ -27,7 +27,7 @@ describe('products test', () => {
       .field('price', product.price)
       .field('category', product.category)
       .field('description', product.description)
-      .attach('image', 'uploads/userTestImage.png');
+      .attach('image', 'uploads/testImage.png');
 
     expect(response.status).toEqual(201);
   });

@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { unauthorized } from '../utils/errorUtils.js';
-import * as sessoesRepository from '../repositories/sessionsRepository.js';
 
 export default async function validateToken(
   req: Request,

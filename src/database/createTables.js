@@ -36,7 +36,9 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         user_id INTEGER REFERENCES users(id) NOT NULL,
         product_id INTEGER REFERENCES products(id) NOT NULL,
-        quantity INTEGER NOT NULL DEFAULT 1
+        quantity INTEGER NOT NULL DEFAULT 1,
+        finished BOOLEAN NOT NULL DEFAULT FALSE,
+        finished_date TIMESTAMP DEFAULT NULL
       );
     `;
 

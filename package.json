@@ -13,7 +13,8 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest tests/integration/shopping.test.spec.ts -i",
     "test:createDB": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test npm run createDB",
     "test:createTables": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test npm run createTables",
-    "test:seed": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test npm run seed"
+    "test:seed": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test npm run seed",
+    "test:setupDB": "npm run test:createDB && npm run test:createTables"
   },
   "keywords": [],
   "author": "",

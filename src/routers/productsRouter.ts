@@ -4,12 +4,14 @@ import validateSchema from '../middlerware/schemaValidationMiddleware.js';
 import validateToken from '../middlerware/validateToken.js';
 import loginSchema from '../schemas/loginSchema.js';
 import multerInstance from '../multer-config.js';
+import productsSchema from '../schemas/productsSchema.js';
 
 const productsRouter = Router();
 productsRouter.use(validateToken);
 productsRouter.post(
   '/products',
   multerInstance.single('image'),
+  validateSchema(productsSchema),
   productsController.create,
 );
 productsRouter.get('/products', productsController.getAll);

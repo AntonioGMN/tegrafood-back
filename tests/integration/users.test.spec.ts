@@ -7,7 +7,7 @@ describe('auth test', () => {
   let saveImgPath;
   const user = {
     name: 'userTest',
-    email: 'test1@gmail.com',
+    email: 'test@gmail.com',
     password: '123',
   };
 
@@ -17,7 +17,7 @@ describe('auth test', () => {
       .field('name', user.name)
       .field('email', user.email)
       .field('password', user.password)
-      .attach('image', 'uploads/userTestImage.png');
+      .attach('image', 'uploads/testImage.png');
 
     expect(response.status).toEqual(201);
   });
@@ -37,8 +37,6 @@ describe('auth test', () => {
   });
 
   it('Refresh token and receive 200', async () => {
-    const oldToken = token;
-
     const response = await supertest(app)
       .put('/user/refresh')
       .send({ oldToken: token });
@@ -58,6 +56,6 @@ describe('auth test', () => {
 
   afterAll(async () => {
     await clearDB();
-    await deleteFile(saveImgPath);
+    deleteFile(saveImgPath);
   });
 });
