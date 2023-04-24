@@ -1,3 +1,3 @@
 
 
-select * from products
+select * from shopping

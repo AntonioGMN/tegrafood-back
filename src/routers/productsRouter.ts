@@ -8,14 +8,18 @@ import productsSchema from '../schemas/productsSchema.js';
 
 const productsRouter = Router();
 productsRouter.use(validateToken);
+
 productsRouter.post(
   '/products',
   multerInstance.single('image'),
   validateSchema(productsSchema),
   productsController.create,
 );
+
 productsRouter.get('/products', productsController.getAll);
+
 productsRouter.get('/products/filters', productsController.getWithFilters);
+
 productsRouter.get(
   '/products/filters/category',
   productsController.getWithFilters,

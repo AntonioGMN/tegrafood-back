@@ -1,14 +1,48 @@
 import { Request, Response } from 'express';
 import * as productsService from '../service/productsService.js';
+import { bad_request } from '../utils/errorUtils.js';
 
 export async function getAll(req: Request, res: Response) {
-  const products = await productsService.getAll();
+  const { userId } = res.locals;
+  const products = await productsService.getAll(userId);
   res.send(products);
 }
 
 export async function getWithFilters(req: Request, res: Response) {
-  const query = req.query;
-  const products = await productsService.getWithFilters(query);
+  const { userId } = res.locals;
+  let category: boolean | string = false;
+  let alphabeticalOrder: boolean | string = false;
+  let start: boolean | string = false;
+  let end: boolean | string = false;
+
+  if ('category' in req.query) {
+    category = req.query.category.toString();
+    const valideCategories = [
+      'pizza',
+      'sobremesa',
+      'lanche',
+      'açaí',
+      'bebidas',
+    ];
+    if (!valideCategories.includes(category))
+      bad_request('Categoria não aceita');
+  }
+
+  console.log('alphabeticalOrder' in req.query);
+
+  if ('alphabeticalOrder' in req.query) alphabeticalOrder = true;
+  if ('start' in req.query) start = req.query.start.toString();
+  if ('end' in req.query) end = req.query.end.toString();
+
+  console.log(category, alphabeticalOrder, start, end);
+
+  const products = await productsService.getWithFilters(
+    category,
+    alphabeticalOrder,
+    start,
+    end,
+    userId,
+  );
 
   res.send(products);
 }
