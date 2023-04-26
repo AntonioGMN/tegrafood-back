@@ -18,7 +18,6 @@ export async function updateQuantity(
 
 export async function deleteById(shoppingId: number): Promise<void> {
   const findedShopping = await shoppingRepository.findbyId(shoppingId);
-  console.log(findedShopping);
   if (!findedShopping) notFound('Não foi encontrada compra com esse id');
 
   return await shoppingRepository.deleteById(shoppingId);

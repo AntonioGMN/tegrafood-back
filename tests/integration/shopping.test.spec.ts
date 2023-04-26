@@ -57,8 +57,6 @@ describe('products test', () => {
       .send({ shoppingId: shoppingId })
       .set('Authorization', 'Bearer ' + token);
 
-    console.log(shoppingId);
-
     expect(response.status).toEqual(204);
   });
 

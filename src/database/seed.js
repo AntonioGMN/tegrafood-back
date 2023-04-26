@@ -2,6 +2,8 @@ import connection from './connection.js';
 
 async function seed() {
   try {
+    await connection.connect();
+
     const queryInsertProducts = `
       INSERT INTO products (name, price, category, description, image) VALUES
       ('Pizza de Marguerita', 60.00, 'pizza', 'Muçarela, tomate, majericão, orégano', 'pizza.png'),
@@ -17,10 +19,7 @@ async function seed() {
     await connection.query('BEGIN');
     await connection.query(queryInsertProducts);
     await connection.query('COMMIT');
-
-    console.log('Seed executado com sucesso!');
   } catch (err) {
-    console.error('Erro ao criar as tabelas', err.stack);
     await connection.query('ROLLBACK');
   } finally {
     await connection.end();

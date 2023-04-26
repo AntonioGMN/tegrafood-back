@@ -2,7 +2,6 @@ import { Router } from 'express';
 import * as productsController from '../controllers/productsController.js';
 import validateSchema from '../middlerware/schemaValidationMiddleware.js';
 import validateToken from '../middlerware/validateToken.js';
-import loginSchema from '../schemas/loginSchema.js';
 import multerInstance from '../multer-config.js';
 import productsSchema from '../schemas/productsSchema.js';
 
@@ -20,9 +19,12 @@ productsRouter.get('/products', productsController.getAll);
 
 productsRouter.get('/products/filters', productsController.getWithFilters);
 
-productsRouter.get(
-  '/products/filters/category',
-  productsController.getWithFilters,
+productsRouter.put(
+  '/product/update',
+  multerInstance.single('image'),
+  productsController.updateAll,
 );
+
+productsRouter.patch('/product/update', productsController.update);
 
 export default productsRouter;

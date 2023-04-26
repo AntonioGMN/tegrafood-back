@@ -1,30 +1,40 @@
-import user, * as userRepository from '../repositories/userRepository.js';
+import User, * as userRepository from '../repositories/userRepository.js';
 import * as sessoesRepository from '../repositories/sessionsRepository.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { forbidden, notFound, unauthorized } from '../utils/errorUtils.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 interface LoginDate {
   email: string;
   password: string;
 }
 
-export async function signUp(userDate: user) {
+export async function signUp(userDate: User): Promise<void> {
   const findedUser = await userRepository.findByEmail(userDate.email);
+  console.log(findedUser);
 
-  if (findedUser) {
-    forbidden('esse email já está cadastrado');
-  }
+  if (findedUser) forbidden('esse email já está cadastrado');
 
   const passwordHash = bcrypt.hashSync(userDate.password, 10);
-
   const hashUser = { ...userDate, password: passwordHash };
+
+  if (
+    userDate.name.includes('adm') &&
+    userDate.password.includes(process.env.ADM_SECRET)
+  ) {
+    console.log('isso adm');
+    return await userRepository.createAdm(hashUser);
+  }
+
   return await userRepository.create(hashUser);
 }
 
 export async function login(
   loginDate: LoginDate,
-): Promise<{ token: string; user: object }> {
+): Promise<{ token: string; user: User }> {
   const findedUser = await userRepository.findByEmail(loginDate.email);
   if (findedUser === undefined) {
     notFound('Não foi encontrado um usuário com esse email');
@@ -47,16 +57,16 @@ export async function login(
   return { token, user: findedUser };
 }
 
-export async function logout(userId: number) {
+export async function logout(userId: number): Promise<void> {
   return await sessoesRepository.logout(userId);
 }
 
-export async function find(userId: number) {
+export async function find(userId: number): Promise<User> {
   const users = await userRepository.findById(userId);
   return users;
 }
 
-export async function refleshToken(oldToken: string) {
+export async function refleshToken(oldToken: string): Promise<string> {
   const response = await sessoesRepository.findByToken(oldToken);
   if (!response) unauthorized('Token invalido para refresh');
 

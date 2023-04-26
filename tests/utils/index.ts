@@ -10,7 +10,6 @@ export async function clearDB(): Promise<void> {
     await connection.query('TRUNCATE sessions CASCADE');
     await connection.query('COMMIT');
   } catch (err) {
-    console.error('Erro ao limpar tabelas', err);
     await connection.query('ROLLBACK');
   } finally {
     await connection.end();

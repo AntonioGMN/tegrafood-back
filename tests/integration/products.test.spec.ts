@@ -15,6 +15,8 @@ describe('products test', () => {
     image: 'estImage.png',
   };
 
+  let findedProduct;
+
   beforeAll(async () => {
     token = await createToken();
   });
@@ -51,10 +53,28 @@ describe('products test', () => {
       .get('/products/filters?category=lanche')
       .set('Authorization', 'Bearer ' + token);
 
+    findedProduct = seartLanche.body[0];
+
     expect(seartLanche.status).toEqual(200);
     expect(seartPizza.status).toEqual(200);
     expect(seartLanche.body.length).toEqual(1);
     expect(seartPizza.body.length).toEqual(0);
+  });
+
+  it('Edite product to category pizza and receive 200', async () => {
+    const newProduct = { ...findedProduct, category: 'pizza' };
+    const update = await supertest(app)
+      .patch('/product/update')
+      .send(newProduct)
+      .set('Authorization', 'Bearer ' + token);
+
+    const seartPizza = await supertest(app)
+      .get('/products/filters?category=pizza')
+      .set('Authorization', 'Bearer ' + token);
+
+    expect(update.status).toEqual(200);
+    expect(seartPizza.status).toEqual(200);
+    expect(seartPizza.body.length).toEqual(1);
   });
 
   afterAll(async () => {

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import * as userService from '../service/userService.js';
 
 export async function sighUp(req: Request, res: Response) {
+  console.log(req.body);
   const user = req.body;
   user.image = req.file.filename;
 

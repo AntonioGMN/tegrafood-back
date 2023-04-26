@@ -8,7 +8,8 @@ async function createTables() {
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
-        image VARCHAR(255) NOT NULL
+        image VARCHAR(255) NOT NULL,
+        is_adm BOOLEAN NOT NULL DEFAULT FALSE
       )
     `;
 
@@ -48,10 +49,7 @@ async function createTables() {
     await connection.query(queryCreateProducts);
     await connection.query(queryCreateShopping);
     await connection.query('COMMIT');
-
-    console.log('Tabelas criadas com sucesso!');
   } catch (err) {
-    console.error('Erro ao criar as tabelas', err);
     await connection.query('ROLLBACK');
   } finally {
     await connection.end();

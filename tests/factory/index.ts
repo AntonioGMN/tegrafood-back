@@ -1,12 +1,15 @@
 import * as userService from '../../src/service/userService';
 import * as productsService from '../../src/service/productsService';
+import connection from '../../src/database/connection.js';
+import User from '../../src/repositories/userRepository';
 
 export async function createToken(): Promise<string> {
-  const user = {
+  const user: User = {
     name: 'user_test',
     email: 'user_test' + Date.now() + '@gmail.com',
     password: '123',
     image: 'testImage.png',
+    is_adm: false,
   };
   await userService.signUp(user);
   const { token } = await userService.login({
@@ -25,6 +28,6 @@ export async function createProduct(): Promise<string> {
     image: 'testImage.png',
   };
   await productsService.create(product);
-  const response = await productsService.getAll();
-  return response[0].id;
+  const response = await connection.query('SELECT * FROM products');
+  return response.rows[0].id;
 }

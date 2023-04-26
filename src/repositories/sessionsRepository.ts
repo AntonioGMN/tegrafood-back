@@ -22,25 +22,17 @@ export async function findByUserId(userId: number) {
 }
 
 export async function findByToken(token: string) {
-  try {
-    const { rows } = await connection.query(
-      'SELECT * FROM sessions WHERE token=$1',
-      [token],
-    );
+  const { rows } = await connection.query(
+    'SELECT * FROM sessions WHERE token=$1',
+    [token],
+  );
 
-    return rows[0];
-  } catch (err) {
-    console.log(err);
-  }
+  return rows[0];
 }
 
 export async function updateToken(token: string, userId: number) {
-  try {
-    return await connection.query(
-      `UPDATE sessions SET token=$1 WHERE user_id=$2;`,
-      [token, userId],
-    );
-  } catch (err) {
-    console.log(err);
-  }
+  return await connection.query(
+    `UPDATE sessions SET token=$1 WHERE user_id=$2;`,
+    [token, userId],
+  );
 }

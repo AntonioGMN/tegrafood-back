@@ -28,13 +28,9 @@ export async function getWithFilters(req: Request, res: Response) {
       bad_request('Categoria não aceita');
   }
 
-  console.log('alphabeticalOrder' in req.query);
-
   if ('alphabeticalOrder' in req.query) alphabeticalOrder = true;
   if ('start' in req.query) start = req.query.start.toString();
   if ('end' in req.query) end = req.query.end.toString();
-
-  console.log(category, alphabeticalOrder, start, end);
 
   const products = await productsService.getWithFilters(
     category,
@@ -50,7 +46,23 @@ export async function getWithFilters(req: Request, res: Response) {
 export async function create(req: Request, res: Response) {
   const product = req.body;
   product.image = req.file.filename;
+
   await productsService.create(product);
 
   res.sendStatus(201);
+}
+
+export async function updateAll(req: Request, res: Response) {
+  const product = req.body;
+  product.image = req.file.filename;
+  await productsService.updateAll(product);
+
+  res.sendStatus(200);
+}
+
+export async function update(req: Request, res: Response) {
+  const product = req.body;
+  await productsService.update(product);
+
+  res.sendStatus(200);
 }

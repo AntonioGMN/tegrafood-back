@@ -7,6 +7,8 @@ export default function validateSchema(schema) {
       messages: {
         'string.email': 'O campo de email deve ser um endereço de email válido',
         'any.required': 'O campo {{#label}} é não foi enviado',
+        'any.only':
+          'O campo {{#label}} deve ser uma das opções: pizza, sobremesa, lanche, açaí, bebidas',
       },
     };
 
